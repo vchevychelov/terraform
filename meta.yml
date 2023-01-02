@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: ubuntu
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4ogCzv0wd0S4zH7UCeSHdTcpb6wFymE+8qt1WyRceb78FirFx58J4RZn1YZLKY+lyrYlQr0IDY4ZN4VMLB/THzMNsIoss7E6r8vEi+DJdlil1XXLGLWxHkfOQGCthG0gfg0q3/ld9wadvqK3jw62C9cvah+yEDv+yLtob7mtCf51VPm8VbEn2sdtBFFrGzsDr/Uuv72CpXtrHfb5w6D9i+nN43F8e7u6ZEro44n/YtVGDYEVtBjtCBYaU5ngDtEhIFlMeDAVK+EmXa5Hi1mLbBSW4Ozd8eXYVDkOb0z8ooygQ+XKULXva0PkgpFFz08/dKpwh1uCirBoRoua8hqiPe9EEBygygJf9tj1J4o3n28Xxj8qsPrfis8tqZkHxAxnd0xoXnWyFmoRiv6o3w6DcGD3P/BjcxqCo4xYc3pFuRw5DpsD91b7hbdx/nN+v6P4CFPFbfU48Ct1g4I/A1L3Lxen6gkKlL+g7RQuSRFuZut34iGrhwftbB6SRP8Htm+oxrtTufbRsJOQTs8FVekPt9pqUakwFklUznh9bbgNfu8nwLcItJYg/V3ejrGrP1+e3jfp1sMNEtDUHJXLl5HzMK9izFIVRAFsewEeCiCjNpp8HBZiBmgjjXGBxoUXaO61fcbTZHMPIL6iqrj1kVHpBAB0VSxwp1iRbDsqCHIE+ew== root@5CD05273WS
