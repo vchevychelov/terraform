@@ -6,16 +6,6 @@ terraform {
   }
 }
 
-variable "private_key_path" {
-  description = "Path to ssh private key, which would be used to access workers"
-  default     = "~/.ssh/id_rsa"
-}
-
-variable "public_key_path" {
-  description = "Path to ssh public key, which would be used to access workers"
-  default     = "~/.ssh/id_rsa.pub"
-}
-
 provider "yandex" {
   token     = "y0_AgAAAABnXmIqAATuwQAAAADXy1FTRNMoi3GvREGW3UmJRHw9t7fOLUo"
   cloud_id  = "myyacloud"
@@ -24,7 +14,31 @@ provider "yandex" {
 }
 
 resource "yandex_compute_instance" "vm-1" {
-  name = "dev1"
+  name = "dev"
+
+  resources {
+    cores  = 2
+    memory = 2
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = "fd8ju9iqf6g5bcq77jns"
+    }
+  }
+
+  network_interface {
+    subnet_id = yandex_vpc_subnet.subnet-1.id
+    nat       = true
+  }
+
+metadata = {
+    user-data = "${file("./meta.yml")}"
+  }
+}
+
+resource "yandex_compute_instance" "vm-2" {
+  name = "prod"
 
   resources {
     cores  = 2
@@ -43,33 +57,7 @@ resource "yandex_compute_instance" "vm-1" {
   }
 
   metadata = {
-    user-data = "ubuntu:${file("/opt/terraform/meta.yml")}"
-    ssh-keys  = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
-  }
-}
-
-resource "yandex_compute_instance" "vm-2" {
-  name = "prod2"
-
-  resources {
-    cores  = 4
-    memory = 4
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "fd8ju9iqf6g5bcq77jns"
-    }
-  }
-
-  network_interface {
-    subnet_id = yandex_vpc_subnet.subnet-1.id
-    nat       = true
-  }
-
-  metadata = {
-    user-data = "ubuntu:${file("/opt/terraform/meta.txt")}"
-    ssh-keys  = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    user-data = "${file("./meta.yml")}"
   }
 
   depends_on = [
