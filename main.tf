@@ -7,7 +7,7 @@ terraform {
 }
 
 resource "yandex_compute_instance" "vm-1" {
-  name = "dev_01"
+  name = "dev01"
 
   resources {
     cores  = 2
@@ -31,7 +31,7 @@ metadata = {
 }
 
 resource "yandex_compute_instance" "vm-2" {
-  name = "stage_01"
+  name = "stage01"
 
   resources {
     cores  = 2
@@ -90,9 +90,9 @@ output "external_ip_address_vm_2" {
 resource "local_file" "inventory" {
 filename = "./inventory/hosts.ini"
 content = <<EOF
-[dev_01]
+[dev01]
 ${yandex_compute_instance.vm-1.network_interface.0.nat_ip_address}
-[stage_01]
+[stage01]
 ${yandex_compute_instance.vm-2.network_interface.0.nat_ip_address}
 EOF
 }
